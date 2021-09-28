@@ -131,38 +131,36 @@ model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
 tf.debugging.set_log_device_placement(True)
 
 model = create_model()
-with tf.device('/gpu:0'):
-    history = model.fit(train_set,validation_data = test_set,epochs=epochs, callbacks=[model_checkpoint_callback])
-
-model.summary()
+#with tf.device('/gpu:0'):
+#    history = model.fit(train_set,validation_data = test_set,epochs=epochs, callbacks=[model_checkpoint_callback])
 
 #cross val
 seed = 7
 numpy.random.seed(seed)
 kfold = StratifiedKFold(n_splits=10, shuffle=True, random_state=seed)
-results = cross_val_score(history, X, Y, cv=kfold)
-
+results = cross_val_score(model, X, Y, cv=kfold, scoring='accuracy')
+model.summary()
 #model.load_weights(checkpoint_filepath)
 #model.save_weights('./test_model')
 
-acc = history.history['accuracy']
-val_acc = history.history['val_accuracy']
+#acc = history.history['accuracy']
+#val_acc = history.history['val_accuracy']
 
-loss = history.history['loss']
-val_loss = history.history['val_loss']
+#loss = history.history['loss']
+#val_loss = history.history['val_loss']
 
 epochs_range = range(epochs)
 
 plt.figure(figsize=(16, 8))
 plt.subplot(1, 2, 1)
-plt.plot(epochs_range, acc, label='Training Accuracy')
-plt.plot(epochs_range, val_acc, label='Validation Accuracy')
+#plt.plot(epochs_range, acc, label='Training Accuracy')
+#plt.plot(epochs_range, val_acc, label='Validation Accuracy')
 plt.legend(loc='lower right')
 plt.title('Training and Validation Accuracy')
 
 plt.subplot(1, 2, 2)
-plt.plot(epochs_range, loss, label='Training Loss')
-plt.plot(epochs_range, val_loss, label='Validation Loss')
+#plt.plot(epochs_range, loss, label='Training Loss')
+#plt.plot(epochs_range, val_loss, label='Validation Loss')
 plt.legend(loc='upper right')
 plt.title('Training and Validation Loss')
 plt.show()
