@@ -101,11 +101,11 @@ def save_model(model_name):
     save_best_only=True)
     return model_checkpoint_callback
 
-def execute_training_model(train_set,test_set,model_checkpoint_callback, model_name, epochs):
+def execute_training_model(train_set,test_set,model_checkpoint_callback, model_name, model,epochs):
 
     tf.debugging.set_log_device_placement(True)
 
-    model = create_model()
+    #model = create_model()
     if tf.test.is_gpu_available():
         with tf.device('/gpu:0'):
             history = model.fit(train_set, validation_data=test_set, epochs=epochs,
@@ -146,22 +146,9 @@ def process_model(model_name,epochs,data_dir):
     model_checkpoint_callback = save_model(value=model_name)
     execute_training_model(train_set,test_set,model_checkpoint_callback,model_name, epochs=epochs)
 
-process_model(model_name="Photo_Painting",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Pa')
-process_model(model_name="Photo_Schementic",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Sh')
-process_model(model_name="Photo_Sketch",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Sk')
-process_model(model_name="Photo_Text",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Te')
-
-
-Photo_Painting_model = tf.keras.models.load_model('../model/my_best_model_Photo_Painting.epoch11-loss0.62.hdf5')
-Photo_Schementic_model = tf.keras.models.load_model('../model/my_best_model_Photo_Schementic.epoch11-loss0.62.hdf5')
-Photo_Sketch_model = tf.keras.models.load_model('../model/my_best_model_Photo_Sketch.epoch11-loss0.62.hdf5')
-Photo_Text_model = tf.keras.models.load_model('../model/my_best_model_Photo_Text.epoch11-loss0.62.hdf5')
-
-from keras.models import Model, Sequential
-
-all_model = tf.keras.layers.Concatenate()
-
-merged_model = Model([Photo_Painting_model, Photo_Schementic_model,Photo_Sketch_model,Photo_Text_model], out)
-merged_model.compile(loss='binary_crossentropy', optimizer='adam',metrics=['accuracy'])
+#process_model(model_name="Photo_Painting",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Pa')
+#process_model(model_name="Photo_Schementic",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Sh')
+#process_model(model_name="Photo_Sketch",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Sk')
+#process_model(model_name="Photo_Text",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Te')
 
 
