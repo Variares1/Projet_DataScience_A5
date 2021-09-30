@@ -1,8 +1,4 @@
-import pathlib
-import zipfile
-import os
 import tensorflow as tf
-from PIL import Image as Image
 import matplotlib.pyplot as plt
 from tensorflow.keras import datasets, layers, models
 
