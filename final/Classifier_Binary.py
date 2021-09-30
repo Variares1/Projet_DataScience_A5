@@ -101,7 +101,6 @@ def execute_training_model(train_set,test_set,model_checkpoint_callback, model_n
 
     tf.debugging.set_log_device_placement(True)
 
-    #model = create_model()
     if tf.test.is_gpu_available():
         with tf.device('/gpu:0'):
             history = model.fit(train_set, validation_data=test_set, epochs=epochs,
@@ -138,11 +137,11 @@ def execute_training_model(train_set,test_set,model_checkpoint_callback, model_n
 def process_model(model_name,epochs,data_dir):
     train_set,test_set = dataset(data_dir)
     autotune_Dataset(train_set,test_set)
-    create_model(num_classes=2)
-    model_checkpoint_callback = save_model(value=model_name)
-    execute_training_model(train_set,test_set,model_checkpoint_callback,model_name, epochs=epochs)
+    model = create_model(num_classes=2)
+    model_checkpoint_callback = save_model(model_name)
+    execute_training_model(train_set,test_set,model_checkpoint_callback,model_name, model,epochs=epochs)
 
-#process_model(model_name="Photo_Painting",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Pa')
+process_model(model_name="Photo_Painting",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Pa')
 #process_model(model_name="Photo_Schementic",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Sh')
 #process_model(model_name="Photo_Sketch",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Sk')
 #process_model(model_name="Photo_Text",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Te')
