@@ -11,7 +11,8 @@ Photo_Text_model = tf.keras.models.load_model('../model/my_best_model_Photo_Text
 all_model = [Photo_Painting_model,Photo_Schementic_model,Photo_Sketch_model,Photo_Text_model]
 
 binary_dataset_dir_path = "../Dataset_Binary_Project"
-dataset_to_extract = "../Dataset/Project_Dataset_Clean"
+dataset_to_extract_path = "../Dataset/Project_Dataset_Clean"
+binary_dataset_test_path = "../Dataset_Binary_Project_test"
 dataset_to_compare = "Photo"
 
 def create_binary_dataset(dataset_to_extract,binary_dataset_dir_path, dataset_to_compare):
@@ -50,6 +51,35 @@ def create_binary_dataset(dataset_to_extract,binary_dataset_dir_path, dataset_to
                 shutil.copy2(dataset_to_extract + "/" + dataset_to_compare + "/" + file, binary_dataset_dir_path + "/" + directory + "_" + dataset_to_compare + "/" + dataset_to_compare)
         print("Finished copy")
 
+def create_binary_dataset_test(dataset_to_extract,binary_dataset_test,dataset_to_compare):
+    if not os.path.exists(binary_dataset_test):
+        os.mkdir(binary_dataset_test)
+
+    if not os.path.exists(binary_dataset_test + "/" + dataset_to_compare):
+        os.mkdir(binary_dataset_test + "/" + dataset_to_compare)
+
+    if not os.path.exists(binary_dataset_test + "/all_pictures"):
+        os.mkdir(binary_dataset_test + "/all_pictures")
+
+        for directory in os.listdir(dataset_to_extract):
+            print(dataset_to_extract + "/" + directory)
+            if directory == dataset_to_compare:
+                continue
+
+            print("Copy file in " + binary_dataset_test + "/all_pictures")
+            for file in os.listdir(dataset_to_extract + "/" + directory):
+                if not os.path.exists(binary_dataset_test + "/all_pictures/" + file):
+                    shutil.copy2(dataset_to_extract + "/" + directory + "/" + file, binary_dataset_test + "/all_pictures")
+            print("Finished copy")
+
+        print("Copy file in " + binary_dataset_test + "/" + dataset_to_compare)
+        for file in os.listdir(dataset_to_extract + "/" + dataset_to_compare):
+            if not os.path.exists(binary_dataset_test + "/" + dataset_to_compare + "/" + file):
+                shutil.copy2(dataset_to_extract + "/" + dataset_to_compare + "/" + file, binary_dataset_test + "/" + dataset_to_compare)
+        print("Finished copy")
+
+
+
 def all_binary_classifier(dataset,batch_s,model):
     train_set, test_set = Classifier_Binary.dataset(dataset, image_h=180, image_w=180,
                                                     batch_s=batch_s)
@@ -62,6 +92,7 @@ def all_classifier(batch_s,all_model):
         for model in all_model:
             all_binary_classifier("../Dataset/Project_Dataset_Test",batch_s, model)
 
-all_classifier(32,all_model)
-create_binary_dataset(dataset_to_extract,binary_dataset_dir_path,dataset_to_compare)
+#all_classifier(32,all_model)
+#create_binary_dataset(dataset_to_extract_path,binary_dataset_dir_path,dataset_to_compare)
+create_binary_dataset_test(dataset_to_extract_path,binary_dataset_test_path,dataset_to_compare)
 
