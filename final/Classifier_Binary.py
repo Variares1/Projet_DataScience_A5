@@ -28,7 +28,7 @@ def dataset (data_dir,image_h = 180,image_w = 180,batch_s = 32):
         label_mode='int',
         labels="inferred"
     )
-
+    print(test_set.class_names)
     return train_set, test_set
 
 def autotune_Dataset(train_set,test_set):
