@@ -141,7 +141,7 @@ def process_model(model_name,epochs,data_dir):
     model_checkpoint_callback = save_model(model_name)
     execute_training_model(train_set,test_set,model_checkpoint_callback,model_name, model,epochs=epochs)
 
-process_model(model_name="Photo_Painting",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Pa')
+#process_model(model_name="Photo_Painting",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Pa')
 #process_model(model_name="Photo_Schementic",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Sh')
 #process_model(model_name="Photo_Sketch",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Sk')
 #process_model(model_name="Photo_Text",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Te')
