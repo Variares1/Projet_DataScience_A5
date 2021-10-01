@@ -43,7 +43,8 @@ def pred_multi_binary_model(batch_size, dataset_binary):
 
     new_confus_mtx = sk.metrics.confusion_matrix(labels,labels_pred)
 
-    disp = sk.metrics.ConfusionMatrixDisplay(new_confus_mtx,display_labels=test_set.class_names).plot
-    plt.show()
+    disp = sk.metrics.ConfusionMatrixDisplay(new_confus_mtx,display_labels=test_set.class_names)
+    disp.plot()
+    disp.show()
 
 pred_multi_binary_model(32,"../Dataset_Binary_Project_test/")
