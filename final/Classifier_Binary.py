@@ -131,7 +131,7 @@ def execute_training_model(train_set,test_set,model_checkpoint_callback, model_n
     plt.plot(epochs_range, val_loss, label='Validation Loss')
     plt.legend(loc='upper right')
     plt.title('Training and Validation Loss ' + model_name)
-    plt.savefig('../images/Training_and_Validation_Loss_' + model_name)
+    plt.savefig('images/Training_and_Validation_Loss_' + model_name)
     plt.show()
 
 
