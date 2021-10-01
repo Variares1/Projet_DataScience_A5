@@ -89,12 +89,13 @@ def save_model(model_name):
     name = "my_best_model_" + model_name + ".epoch{epoch:02d}-loss{val_loss:.2f}.hdf5"
     checkpoint_filepath = '../model/' + name
     model_checkpoint_callback = tf.keras.callbacks.ModelCheckpoint(
-    filepath=checkpoint_filepath,
-    save_weights_only=False,
-    monitor='val_accuracy',
-    mode='max',
-    #save_freq="epoch",
-    save_best_only=True)
+        filepath=checkpoint_filepath,
+        save_weights_only=False,
+        monitor='val_accuracy',
+        mode='max',
+        #save_freq="epoch",
+        save_best_only=True
+    )
     return model_checkpoint_callback
 
 def execute_training_model(train_set,test_set,model_checkpoint_callback, model_name, model,epochs):
@@ -129,8 +130,8 @@ def execute_training_model(train_set,test_set,model_checkpoint_callback, model_n
     plt.plot(epochs_range, loss, label='Training Loss')
     plt.plot(epochs_range, val_loss, label='Validation Loss')
     plt.legend(loc='upper right')
-    plt.title('Training and Validation Loss')
-    plt.savefig('Training and Validation Loss' + model_name)
+    plt.title('Training and Validation Loss ' + model_name)
+    plt.savefig('../images/Training_and_Validation_Loss_' + model_name)
     plt.show()
 
 
@@ -140,10 +141,5 @@ def process_model(model_name,epochs,data_dir):
     model = create_model(num_classes=2)
     model_checkpoint_callback = save_model(model_name)
     execute_training_model(train_set,test_set,model_checkpoint_callback,model_name, model,epochs=epochs)
-
-#process_model(model_name="Photo_Painting",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Pa')
-#process_model(model_name="Photo_Schementic",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Sh')
-#process_model(model_name="Photo_Sketch",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Sk')
-#process_model(model_name="Photo_Text",epochs=25,data_dir='../Dataset_Binary_Project/Project_Dataset_Ph_Te')
 
 
