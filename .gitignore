@@ -139,3 +139,5 @@ Dataset_WS/
 DatasetL2/
 Dataset_Binary_Project/
 Dataset_Binary_Project_test/
+WS/annotations/
+WS/train2014/
