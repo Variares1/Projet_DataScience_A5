@@ -1,0 +1,2 @@
+model_checkpoint_path: "Weights_L3_decoder.epoch30-loss0.18"
+all_model_checkpoint_paths: "Weights_L3_decoder.epoch30-loss0.18"
